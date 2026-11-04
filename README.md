@@ -10,6 +10,11 @@ Allows administrators, moderators and/or topic authors to apply attributes to to
 
 ## Update instructions
 
+For **ernadoo/qte 2.0.0-RC1**, follow the
+[Spanish migration guide](docs/migracion-ernadoo.md) instead of the same-extension
+update procedure below. Disable the old extension without deleting its data;
+both extensions share the same database tables.
+
 1. Go to your phpBB board > Administration Control Panel > Customise > Manage extensions > Quick Title Edition: disable
 2. Delete all files of the extension from /ext/kaileymsnay/qte
 3. Upload all the new files to the same locations

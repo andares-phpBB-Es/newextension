@@ -76,4 +76,9 @@ $lang = array_merge($lang, [
 	// Topic attributes as keys
 	'QTE_SOLVED'	=> '[Solucionado por %mod% :: %date%]',
 	'QTE_CANCELLED'	=> 'Cancelado',
+	// Claves de atributos personalizadas de la versión antigua de ernadoo/qte.
+	'QTE_REUP'	=> 'RESUBIDO',
+	'QTE_ROTO'	=> 'ENLACE ROTO',
+	'QTE_LAUT'	=> 'LISTADO AUTOMATICO',
+	'QTE_LVPINT'	=> 'LISTADO ZONA VIP & INT.',
 ]);
