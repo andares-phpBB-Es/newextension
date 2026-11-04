@@ -1,0 +1,22 @@
+{% if S_QTE_SELECT %}
+<div class="dropdown-container dropdown-container-left dropdown-up dropdown-{{ S_CONTENT_FLOW_END }} dropdown-button-control">
+	<span title="{{ lang('QTE_ATTRIBUTES') }}" class="button button-secondary dropdown-trigger dropdown-select">
+		<i class="icon fa-terminal fa-fw" aria-hidden="true"></i><span class="sr-only">{{ lang('QTE_ATTRIBUTES') }}</span>
+		<span class="caret"><i class="icon fa-sort-down fa-fw" aria-hidden="true"></i></span>
+	<div class="dropdown">
+		<div class="pointer"><div class="pointer-inner"></div></div>
+		<ul class="dropdown-contents">
+			{% if S_QTE_DELETE and not S_QTE_EMPTY %}
+			<li>
+				<a href="{{ U_QTE_URL }}" style="font-weight: bold;" title="{{ attributes.QTE_NAME }}" data-ajax="qte.attr_apply">{{ lang('QTE_ATTRIBUTE_DELETE') }}</a>
+			</li>
+			{% endif %}
+			{% for attribute in attributes %}
+			<li>
+				<a href="{{ attribute.U_QTE_URL }}" {{ attribute.QTE_COLOUR }} title="{{ attribute.QTE_NAME }}" data-ajax="qte.attr_apply">{{ attribute.QTE_NAME }}{% if attribute.S_QTE_DESC %} [{{ attribute.QTE_DESC }}]{% endif %}</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+{% endif %}

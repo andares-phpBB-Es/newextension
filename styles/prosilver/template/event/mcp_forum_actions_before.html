@@ -1,0 +1,13 @@
+{% if S_QTE_SELECT %}
+{{ S_FORM_TOKEN_QTE }}
+<fieldset class="display-actions">
+	<select name="attr_id" id="attribute">
+		<option style="padding-left: 0px; font-weight: bold;" value="0">{{ lang('QTE_ATTRIBUTE_SELECT') }}</option>
+		{% if S_QTE_DELETE %}<option value="-1" style="font-weight: bold;">{{ lang('QTE_ATTRIBUTE_DELETE') }}</option>{% endif %}
+		{% for attribute in attributes %}
+		<option value="{{ attribute.QTE_ID }}"{{ attribute.QTE_COLOUR }}>{{ attribute.QTE_NAME }}{% if attribute.S_QTE_DESC %} [{{ attribute.QTE_DESC }}]{% endif %}</option>
+		{% endfor %}
+	</select>
+	<input class="button2" type="submit" value="{{ lang('SUBMIT') }}" />
+</fieldset>
+{% endif %}

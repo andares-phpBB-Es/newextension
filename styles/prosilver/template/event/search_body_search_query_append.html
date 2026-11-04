@@ -1,0 +1,11 @@
+{% if S_IN_SEARCH and attributes %}
+<dl>
+	<dt><label for="attribute">{{ lang('QTE_ATTRIBUTE_SEARCH') ~ lang('COLON') }}</label><br /><span>{{ lang('QTE_ATTRIBUTE_SEARCH_EXPLAIN') }}</span></dt>
+	<dd><select name="attr_id" id="attribute">
+		<option style="padding-left: 0px; font-weight: bold;" value="0">{{ lang('QTE_ATTRIBUTE_SELECT') }}</option>
+		{% for attribute in attributes %}
+		<option value="{{ attribute.QTE_ID }}"{{ attribute.QTE_COLOUR }}>{{ attribute.QTE_NAME }}{% if attribute.S_QTE_DESC %} [{{ attribute.QTE_DESC }}]{% endif %}</option>
+		{% endfor %}
+	</select></dd>
+</dl>
+{% endif %}

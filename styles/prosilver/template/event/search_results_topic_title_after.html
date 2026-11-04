@@ -1,0 +1,5 @@
+{% if searchresults.TOPIC_ATTRIBUTE %}
+<div id="list_inner_hidden_container_p{{ searchresults.POST_ID }}" jxdom-closest="dl.postprofile" jxdom-find="dd:nth-of-type(3)" jxdom-action="replace">
+<dd>{{ lang('TOPIC') ~ lang('COLON') }} {{ searchresults.TOPIC_ATTRIBUTE }} <a href="{{ searchresults.U_VIEW_TOPIC }}">{{ searchresults.TOPIC_TITLE }}</a></dd>
+</div>
+{% endif %}

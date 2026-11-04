@@ -1,0 +1,36 @@
+/**
+ *
+ * Quick Title Edition extension for the phpBB Forum Software package
+ *
+ * @copyright (c) 2023, Kailey Snay, https://www.snayhomelab.com/
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
+
+/* Selector */
+fieldset.attribute {
+	text-align: right;
+	margin-top: 15px;
+	height: 2.5em;
+}
+
+/* Attributes */
+.qte_solved { color: #006600; }
+.qte_cancelled { color: #cc0000; }
+
+.qte_solved, .qte_cancelled { font-weight: bold; }
+
+/* Imageset */
+.imageset.qte_solved {
+	background-image: url("./images/icon_topic_solved.gif");
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 3px;
+}
+
+.imageset.qte_cancelled {
+	background-image: url("./images/icon_topic_cancel.gif");
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 3px;
+}

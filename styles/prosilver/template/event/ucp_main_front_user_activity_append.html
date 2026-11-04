@@ -1,0 +1,5 @@
+{% if TOPIC_ATTRIBUTE %}
+<div id="list_inner_hidden_container" jxdom-closest="dl.details" jxdom-find="dd:nth-of-type(5)" jxdom-action="replace">
+<dd><strong>{{ TOPIC_ATTRIBUTE}} <a href="{{ U_ACTIVE_TOPIC }}">{{ ACTIVE_TOPIC }}</a></strong><br />({{ ACTIVE_TOPIC_POSTS }} / {{ ACTIVE_TOPIC_PCT }})</dd>
+</div>
+{% endif %}
