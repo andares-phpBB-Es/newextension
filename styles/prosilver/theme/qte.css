@@ -15,6 +15,9 @@ fieldset.attribute {
 }
 
 /* Attributes */
+/* Recent Topics NG 1.2.1 emits topiclist_row_prepend twice in a topic row. */
+.list-inner > .qte-rtng-attribute ~ .qte-rtng-attribute { display: none; }
+
 .qte_solved { color: #006600; }
 .qte_cancelled { color: #cc0000; }
 

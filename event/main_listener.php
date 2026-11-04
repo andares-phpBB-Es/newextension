@@ -143,6 +143,10 @@ class main_listener implements EventSubscriberInterface
 			// UCP (bookmarks and subscriptions)
 			'core.ucp_main_topiclist_topic_modify_template_vars'	=> 'ucp_main_topiclist_topic_modify_template_vars',
 
+			// Recent Topics NG (optional integration)
+			'imcger.recenttopicsng.modify_topics_list'	=> 'recenttopicsng_modify_topics_list',
+			'imcger.recenttopicsng.modify_tpl_ary'		=> 'recenttopicsng_modify_tpl_ary',
+
 			// Viewforum
 			'core.viewforum_modify_topicrow'	=> 'viewforum_modify_topicrow',
 			'core.viewforum_modify_topics_data'	=> 'viewforum_modify_topics_data',
@@ -615,6 +619,20 @@ class main_listener implements EventSubscriberInterface
 		{
 			$event->update_subarray('template_vars', 'TOPIC_ATTRIBUTE', $this->qte->attr_display($event['row']['topic_attr_id'], $event['row']['topic_attr_user'], $event['row']['topic_attr_time']));
 		}
+	}
+
+	// Recent Topics NG
+	public function recenttopicsng_modify_topics_list($event)
+	{
+		$this->qte->get_users_by_topic_id($event['topic_list']);
+	}
+
+	public function recenttopicsng_modify_tpl_ary($event)
+	{
+		$row = $event['row'];
+		$event->update_subarray('tpl_ary', 'TOPIC_ATTRIBUTE', !empty($row['topic_attr_id'])
+			? $this->qte->attr_display($row['topic_attr_id'], $row['topic_attr_user'], $row['topic_attr_time'])
+			: false);
 	}
 
 	// Viewforum
