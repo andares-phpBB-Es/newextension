@@ -1,0 +1,23 @@
+<fieldset>
+	<legend>{{ lang('QTE_TOPICS_ATTR_SETTINGS') }}</legend>
+	{% if attributes %}
+	<dl>
+		<dt><label for="default_attr">{{ lang('QTE_DEFAULT_ATTR') ~ lang('COLON') }}</label><br /><span>{{ lang('QTE_DEFAULT_ATTR_EXPLAIN') }}</span></dt>
+		<dd><select name="default_attr">
+			<option style="padding-left: 0px; font-weight: bold;" value="0">{{ lang('QTE_ATTRIBUTE_DESIRED') }}</option>
+			{% for attribute in attributes %}
+			<option value="{{ attribute.QTE_ID }}"{{ attribute.QTE_COLOUR }}{% if attribute.IS_SELECTED %} selected="selected"{% endif %}>{{ attribute.QTE_NAME }}{% if attribute.S_QTE_DESC %} [{{ attribute.QTE_DESC }}]{% endif %}</option>
+			{% endfor %}
+		</select></dd>
+	</dl>
+	{% endif %}
+	<dl>
+		<dt><label for="from_attr">{{ lang('QTE_COPY_PERMISSIONS') ~ lang('COLON') }}</label><br /><span>{{ lang('QTE_COPY_PERMISSIONS_EXPLAIN') }}</span></dt>
+		<dd><select id="from_attr" name="from_attr"><option value="0">{{ lang('NO_PERMISSIONS') }}</option>{{ S_FORUM_OPTIONS }}</select></dd>
+	</dl>
+	<dl>
+		<dt><label for="force_attr">{{ lang('QTE_FORCE_USERS') ~ lang('COLON') }}</label><br /><span>{{ lang('QTE_FORCE_USERS_EXPLAIN') }}</span></dt>
+		<dd><label><input type="radio" class="radio" name="force_attr" value="1"{% if S_FORCE_ATTR %} id="force_attr" checked="checked"{% endif %} /> {{ lang('YES') }}</label>
+			<label><input type="radio" class="radio" name="force_attr" value="0"{% if not S_FORCE_ATTR %} id="force_attr" checked="checked"{% endif %} /> {{ lang('NO') }}</label></dd>
+	</dl>
+</fieldset>

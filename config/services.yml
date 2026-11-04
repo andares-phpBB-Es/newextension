@@ -1,0 +1,21 @@
+services:
+    _defaults:
+        autowire: true
+        bind:
+            $root_path: '%core.root_path%'
+            $php_ext: '%core.php_ext%'
+            $table_prefix: '%core.table_prefix%'
+
+    kaileymsnay.qte.controller.acp:
+        class: kaileymsnay\qte\controller\acp_controller
+
+    kaileymsnay.qte.qte:
+        class: kaileymsnay\qte\qte
+
+    kaileymsnay.qte.listener:
+        class: kaileymsnay\qte\event\main_listener
+        tags:
+            - { name: event.listener }
+
+    kaileymsnay.qte.search.fulltext_attribute:
+        class: kaileymsnay\qte\search\fulltext_attribute

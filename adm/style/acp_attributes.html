@@ -1,0 +1,142 @@
+{% include 'overall_header.html' %}
+
+{% if S_EDIT %}
+
+<h1>{{ QTE_ADD_EDIT }}</h1>
+
+<p>{{ QTE_ADD_EDIT_EXPLAIN }}</p>
+
+{% if S_ERROR %}
+	<div class="errorbox">
+		<h3>{{ lang('WARNING') }}</h3>
+		<p>{{ ERROR_MSG }}</p>
+	</div>
+{% endif %}
+
+<form id="acp_attributes" name="acp_attributes" method="post" action="{{ U_ACTION }}">
+
+	<fieldset>
+		<legend>{{ lang('QTE_FIELDS') }}</legend>
+		<dl>
+			<dt><label for="attr_type">{{ lang('QTE_TYPE') ~ lang('COLON') }}</label></dt>
+			<dd><label><input onclick="phpbb.toggleDisplay('img', 1)" type="radio" class="radio" name="attr_type" value="1"{% if S_TEXT %} id="attr_type" checked="checked"{% endif %} /> {{ lang('QTE_TYPE_IMG') }}</label>
+				<label><input onclick="phpbb.toggleDisplay('img', -1)" type="radio" class="radio" name="attr_type" value="0"{% if not S_TEXT %} id="attr_type" checked="checked"{% endif %} /> {{ lang('QTE_TYPE_TXT') }}</label></dd>
+		</dl>
+
+		<dl>
+			<dt><label for="attr_name">{{ lang('QTE_NAME') ~ lang('COLON') }}</label><br /><span>{{ lang('QTE_NAME_EXPLAIN') }}</span></dt>
+			<dd><input type="text" class="text post" name="attr_name" id="attr_name" value="{{ ATTR_NAME }}" maxlength="255" /></dd>
+		</dl>
+
+		<dl id="img"{% if not S_TEXT %} style="display: none;"{% endif %}>
+			<dt><label for="attr_img">{{ lang('QTE_IMG') ~ lang('COLON') }}</label><br /><span>{{ lang('QTE_IMG_EXPLAIN') }}</span></dt>
+			<dd><input type="text" class="text post" name="attr_img" id="attr_img" value="{{ ATTR_IMG }}" maxlength="255" /></dd>
+		</dl>
+
+		<dl>
+			<dt><label for="attr_desc">{{ lang('QTE_DESC') ~ lang('COLON') }}</label><br /><span>{{ lang('QTE_DESC_EXPLAIN') }}</span></dt>
+			<dd><input type="text" class="text post" name="attr_desc" id="attr_desc" value="{{ ATTR_DESC }}" maxlength="255" /></dd>
+		</dl>
+
+		<dl>
+			<dt><label for="attr_date">{{ lang('QTE_DATE') ~ lang('COLON') }}</label><br /><span>{{ lang('QTE_DATE_EXPLAIN') }}</span></dt>
+			<dd><input type="text" class="text post" name="attr_date" id="attr_date" value="{{ ATTR_DATE }}" maxlength="255" /></dd>
+		</dl>
+
+		<dl>
+			<dt><label for="attr_colour">{{ lang('QTE_COLOUR') ~ lang('COLON') }}</label><br /><span>{{ lang('QTE_COLOUR_EXPLAIN') }}</span></dt>
+			<dd>
+				<input name="attr_colour" type="text" id="attr_colour" value="{{ ATTR_COLOUR }}" size="6" maxlength="6" />
+				{% if ATTR_COLOUR %}&nbsp;<span style="background-color: #{{ ATTR_COLOUR }}">&nbsp; &nbsp;</span>{% endif %}&nbsp;&nbsp;<span>
+				[ <a href="#" id="color_palette_toggle">{{ lang('COLOUR_SWATCH') }}</a> ]</span>
+				<div id="color_palette_placeholder" style="display: none;" data-color-palette="h" data-height="12" data-width="15" data-target="#attr_colour"></div>
+			</dd>
+		</dl>
+
+		<dl>
+			<dt><label for="attr_user_colour">{{ lang('QTE_USER_COLOUR') ~ lang('COLON') }}</label><br /><span>{{ lang('QTE_USER_COLOUR_EXPLAIN') }}</span></dt>
+			<dd><label><input type="radio" class="radio" name="attr_user_colour" value="1"{% if S_USER_COLOUR %} id="attr_user_colour" checked="checked"{% endif %} /> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="attr_user_colour" value="0"{% if not S_USER_COLOUR %} id="attr_user_colour" checked="checked"{% endif %} /> {{ lang('NO') }}</label></dd>
+		</dl>
+
+		<dl>
+			<dt><label for="attr_auth_id">{{ lang('QTE_COPY_AUTHS') ~ lang('COLON') }}</label><br /><span>{{ lang('QTE_COPY_AUTHS_EXPLAIN') }}</span></dt>
+			<dd>
+				<input type="hidden" name="attr_id" value="{{ ATTR_ID }}" />
+				<select name="attr_auth_id" id="attr_auth_id">
+					<option value="0">{{ lang('QTE_AUTH_NO_PERMISSIONS') }}</option>
+					{% for option in select_row %}
+					<option value="{{ option.QTE_ID }}"{{ option.QTE_COLOUR }}{% if option.IS_SELECTED %} selected="selected"{% endif %}>{{ option.QTE_NAME }}{% if option.S_QTE_DESC %} [{{ option.QTE_DESC }}]{% endif %}</option>
+					{% endfor %}
+				</select>
+			</dd>
+		</dl>
+	</fieldset>
+
+	<fieldset class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />&nbsp;
+		<input class="button2" type="reset" id="reset" name="reset" value="{{ lang('RESET') }}" />
+		{{ S_FORM_TOKEN }}
+	</fieldset>
+
+</form>
+
+{% else %}
+
+<h1>{{ lang('QTE_MANAGE_TITLE') }}</h1>
+
+<p>{{ lang('QTE_MANAGE_EXPLAIN') }}</p>
+
+<form id="acp_attributes" name="acp_attributes" method="post" action="{{ U_ACTION }}">
+
+	<fieldset class="tabulated">
+		<legend>{{ lang('QTE_MANAGE_TITLE') }}</legend>
+		<table class="table1 zebra-table responsive">
+		<thead>
+			<tr>
+				<th>{{ lang('QTE_ATTRIBUTE') }}</th>
+				<th>{{ lang('QTE_DESC') }}</th>
+				<th>{{ lang('QTE_COLOUR') }}</th>
+				<th>{{ lang('QTE_DATE') }}</th>
+				<th>{{ lang('QTE_USAGE') }}</th>
+				<th>{{ lang('ACTION') }}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% if row %}
+			{% for item in row %}
+			<tr>
+				<td style="text-align: center;">{% if item.S_IMAGE %}{{ item.QTE_IMG }}{% else %}<span style="color: #{{ item.QTE_COLOUR }}; font-weight: bold;">{{ item.QTE_TXT }}</span>{% endif %}</td>
+				<td style="text-align: left; width: 20%;">{% if item.S_DESC %}{{ item.QTE_DESC }}{% else %}<span style="font-style: italic;">{{ lang('QTE_NONE') }}</span>{% endif %}</td>
+				<td style="text-align: center; width: 20%;">{% if item.S_COLOUR %}<strong style="color: #{{ item.QTE_COLOUR }};">{{ item.QTE_COLOUR }}</strong>{% else %}{% if item.S_CSS %}{{ lang('QTE_CSS') }}{% else %}<span style="font-style: italic;">{{ lang('QTE_NONE') }}</span>{% endif %}{% endif %}</td>
+				<td style="text-align: center; width: 20%;">{% if item.S_DATE %}{{ item.QTE_DATE }}{% else %}<span style="font-style: italic;">{{ lang('QTE_NONE') }}</span>{% endif %}</td>
+				<td style="text-align: center; width: 15%;">{{ item.QTE_COUNT }} ({{ item.QTE_PER_CENT }}%)</td>
+				<td class="actions">
+					<span class="up-disabled" style="display:none;">{{ ICON_MOVE_UP_DISABLED }}</span>
+					<span class="up"><a href="{{ item.U_MOVE_UP }}" data-ajax="row_up">{{ ICON_MOVE_UP }}</a></span>
+					<span class="down-disabled" style="display:none;">{{ ICON_MOVE_DOWN_DISABLED }}</span>
+					<span class="down"><a href="{{ item.U_MOVE_DOWN }}" data-ajax="row_down">{{ ICON_MOVE_DOWN }}</a></span>
+					<a href="{{ item.U_EDIT }}">{{ ICON_EDIT }}</a>
+					<a href="{{ item.U_DELETE }}">{{ ICON_DELETE }}</a>
+				</td>
+			</tr>
+			{% endfor %}
+			{% else %}
+			<tr class="row3">
+				<td colspan="6">{{ lang('ACP_NO_ITEMS') }}</td>
+			</tr>
+			{% endif %}
+		</tbody>
+		</table>
+	</fieldset>
+
+	<fieldset class="quick">
+		<input type="hidden" name="action" value="add" />
+		<input class="button2" name="add" type="submit" value="{{ lang('QTE_ADD') }}" />
+		{S_FORM_TOKEN}
+	</fieldset>
+
+</form>
+{% endif %}
+
+{% include 'overall_footer.html' %}
